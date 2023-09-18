@@ -11,7 +11,7 @@ class LoginView extends StatelessWidget{
 
 
     Column columna = Column(children: [
-      Text("Login"),
+      Text("Bienvenido a Kyty Login",style: TextStyle(fontSize: 25)),
       Text("Input User"),
       Text("Input Pass"),
       Row(mainAxisAlignment: MainAxisAlignment.center,
@@ -24,7 +24,10 @@ class LoginView extends StatelessWidget{
     ],);
 
     AppBar appBar = AppBar(
-      title: const Text('AppBar Demo'),
+      title: const Text('Login'),
+      centerTitle: true,
+      shadowColor: Colors.pink,
+      backgroundColor: Colors.greenAccent,
     );
 
     Scaffold scaf=Scaffold(body: columna,
