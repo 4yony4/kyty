@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class LoginView extends StatelessWidget{
+class RegisterView extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class LoginView extends StatelessWidget{
 
 
     Column columna = Column(children: [
-      Text("Bienvenido a Kyty Login",style: TextStyle(fontSize: 25)),
+      Text("Bienvenido a Kyty Register",style: TextStyle(fontSize: 25)),
 
       Padding(padding: EdgeInsets.symmetric(horizontal: 60, vertical: 16),
         child: TextField(
@@ -31,17 +31,28 @@ class LoginView extends StatelessWidget{
           obscureText: true,
         ),
       ),
+
+      Padding(padding: EdgeInsets.symmetric(horizontal: 60, vertical: 16),
+        child: TextFormField(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            hintText: 'Repite tu password',
+          ),
+          obscureText: true,
+        ),
+      ),
+
       Row(mainAxisAlignment: MainAxisAlignment.center,
         children: [
-        TextButton(onPressed: () { print("ACEPTADO");}, child: Text("Aceptar"),),
-        TextButton( onPressed: () {  }, child: Text("REGISTRO"),)
-      ],)
+          TextButton(onPressed: () { print("ACEPTADO");}, child: Text("Aceptar"),),
+          TextButton( onPressed: () {  }, child: Text("REGISTRO"),)
+        ],)
 
-        
+
     ],);
 
     AppBar appBar = AppBar(
-      title: const Text('Login'),
+      title: const Text('Register'),
       centerTitle: true,
       shadowColor: Colors.pink,
       backgroundColor: Colors.greenAccent,
@@ -49,7 +60,7 @@ class LoginView extends StatelessWidget{
 
     Scaffold scaf=Scaffold(body: columna,
       //backgroundColor: Colors.deepOrange,
-    appBar: appBar,);
+      appBar: appBar,);
 
     return scaf;
   }
