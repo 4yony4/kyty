@@ -34,7 +34,7 @@ class LoginView extends StatelessWidget{
       Row(mainAxisAlignment: MainAxisAlignment.center,
         children: [
         TextButton(onPressed: () { print("ACEPTADO");}, child: Text("Aceptar"),),
-        TextButton( onPressed: () {  }, child: Text("REGISTRO"),)
+        TextButton( onPressed: () { Navigator.of(context).popAndPushNamed('/registerview'); }, child: Text("REGISTRO"),)
       ],)
 
         
