@@ -11,11 +11,12 @@ class KytyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
    MaterialApp materialApp=MaterialApp(title: "KyTy Miau!",
-       initialRoute: '/loginview',
        routes: {
          '/loginview':(context) => LoginView(),
          '/registerview':(context) => RegisterView(),
-       },);
+       },
+     initialRoute: '/loginview',
+   );
 
    return materialApp;
   }
