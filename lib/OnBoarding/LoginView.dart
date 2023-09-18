@@ -9,11 +9,13 @@ class LoginView extends StatelessWidget{
     //Text texto=Text("Hola Mundo desde Kyty");
     //return texto;
 
+
     Column columna = Column(children: [
-        Text("Login"),
+      Text("Login"),
       Text("Input User"),
       Text("Input Pass"),
-      Row(children: [
+      Row(mainAxisAlignment: MainAxisAlignment.center,
+        children: [
         TextButton(onPressed: () { print("ACEPTADO");}, child: Text("Aceptar"),),
         TextButton( onPressed: () {  }, child: Text("Cancelar"),)
       ],)
@@ -21,7 +23,15 @@ class LoginView extends StatelessWidget{
         
     ],);
 
-    return columna;
+    AppBar appBar = AppBar(
+      title: const Text('AppBar Demo'),
+    );
+
+    Scaffold scaf=Scaffold(body: columna,
+      backgroundColor: Colors.deepOrange,
+    appBar: appBar,);
+
+    return scaf;
   }
 
 }
