@@ -9,7 +9,8 @@ class KytyApp extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-   MaterialApp materialApp=MaterialApp(title: "KyTy Miau!",home:LoginView() ,);
+   MaterialApp materialApp=MaterialApp(title: "KyTy Miau!",
+     home:LoginView() ,);
 
    return materialApp;
   }

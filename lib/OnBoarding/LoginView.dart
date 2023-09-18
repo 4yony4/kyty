@@ -12,7 +12,12 @@ class LoginView extends StatelessWidget{
 
     Column columna = Column(children: [
       Text("Bienvenido a Kyty Login",style: TextStyle(fontSize: 25)),
-      Text("Input User"),
+      TextField(
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          hintText: 'Enter a search term',
+        ),
+      ),
       Text("Input Pass"),
       Row(mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -31,7 +36,7 @@ class LoginView extends StatelessWidget{
     );
 
     Scaffold scaf=Scaffold(body: columna,
-      backgroundColor: Colors.deepOrange,
+      //backgroundColor: Colors.deepOrange,
     appBar: appBar,);
 
     return scaf;
