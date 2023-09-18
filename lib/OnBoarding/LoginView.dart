@@ -1,10 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kyty/OnBoarding/RegisterView.dart';
 
 class LoginView extends StatelessWidget{
 
+  late BuildContext _context;
+
+  void onClickRegistrar(){
+    Navigator.of(_context).pushNamed("/registerview");
+  }
+
   @override
   Widget build(BuildContext context) {
+    _context=context;
     // TODO: implement build
     //Text texto=Text("Hola Mundo desde Kyty");
     //return texto;
@@ -34,7 +42,7 @@ class LoginView extends StatelessWidget{
       Row(mainAxisAlignment: MainAxisAlignment.center,
         children: [
         TextButton(onPressed: () { print("ACEPTADO");}, child: Text("Aceptar"),),
-        TextButton( onPressed: () { Navigator.of(context).popAndPushNamed('/registerview'); }, child: Text("REGISTRO"),)
+        TextButton( onPressed: onClickRegistrar, child: Text("REGISTRO"),)
       ],)
 
         
