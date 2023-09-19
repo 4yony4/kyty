@@ -3,12 +3,21 @@ import 'package:flutter/material.dart';
 
 class RegisterView extends StatelessWidget{
 
+  late BuildContext _context;
+
+  void onClickCancelar(){
+    Navigator.of(_context).pushNamed("/loginview");
+  }
+  void onClickAceptar(){
+
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     //Text texto=Text("Hola Mundo desde Kyty");
     //return texto;
-
+    _context=context;
 
     Column columna = Column(children: [
       Text("Bienvenido a Kyty Register",style: TextStyle(fontSize: 25)),
@@ -44,8 +53,8 @@ class RegisterView extends StatelessWidget{
 
       Row(mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextButton(onPressed: () { print("ACEPTADO");}, child: Text("Aceptar"),),
-          TextButton( onPressed: () { Navigator.of(context).popAndPushNamed('/loginview'); }, child: Text("Cancelar"),)
+          TextButton(onPressed: onClickAceptar, child: Text("Aceptar"),),
+          TextButton( onPressed: onClickCancelar, child: Text("Cancelar"),)
         ],)
 
 

@@ -9,6 +9,9 @@ class LoginView extends StatelessWidget{
   void onClickRegistrar(){
     Navigator.of(_context).pushNamed("/registerview");
   }
+  void onClickAceptar(){
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +44,7 @@ class LoginView extends StatelessWidget{
       ),
       Row(mainAxisAlignment: MainAxisAlignment.center,
         children: [
-        TextButton(onPressed: () { print("ACEPTADO");}, child: Text("Aceptar"),),
+        TextButton(onPressed: onClickAceptar, child: Text("Aceptar"),),
         TextButton( onPressed: onClickRegistrar, child: Text("REGISTRO"),)
       ],)
 
