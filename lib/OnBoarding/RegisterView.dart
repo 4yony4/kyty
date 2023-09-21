@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -8,8 +9,22 @@ class RegisterView extends StatelessWidget{
   void onClickCancelar(){
     Navigator.of(_context).pushNamed("/loginview");
   }
-  void onClickAceptar(){
+  void onClickAceptar() async {
+    try {
+      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: "yony@yony.com",
+        password: "1234567890",
+      );
 
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
