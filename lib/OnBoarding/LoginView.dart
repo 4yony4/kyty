@@ -1,15 +1,36 @@
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kyty/OnBoarding/RegisterView.dart';
 
 class LoginView extends StatelessWidget{
 
   late BuildContext _context;
+  TextEditingController tecUsername=TextEditingController();
+  TextEditingController tecPassword=TextEditingController();
 
   void onClickRegistrar(){
     Navigator.of(_context).pushNamed("/registerview");
   }
-  void onClickAceptar(){
+
+  void onClickAceptar() async{
+
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: tecUsername.text,
+          password: tecPassword.text
+      );
+      print(">>>>>>>>>>>>>>>>>>>> ME HE LOGEADO!!!!!");
+      Navigator.of(_context).popAndPushNamed("/homeview");
+
+    } on FirebaseAuthException catch (e) {
+
+
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
 
   }
 
@@ -26,6 +47,7 @@ class LoginView extends StatelessWidget{
 
       Padding(padding: EdgeInsets.symmetric(horizontal: 60, vertical: 16),
         child: TextField(
+          controller: tecUsername,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Escribe tu usuario',
@@ -35,6 +57,7 @@ class LoginView extends StatelessWidget{
 
       Padding(padding: EdgeInsets.symmetric(horizontal: 60, vertical: 16),
         child: TextFormField(
+          controller: tecPassword,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Escribe tu password',
