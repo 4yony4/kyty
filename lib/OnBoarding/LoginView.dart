@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kyty/OnBoarding/RegisterView.dart';
 
+import '../Custom/KTTextField.dart';
+
 class LoginView extends StatelessWidget{
 
   late BuildContext _context;
@@ -65,6 +67,12 @@ class LoginView extends StatelessWidget{
           obscureText: true,
         ),
       ),
+
+      KTTextField(tecController: tecUsername,sHint:''),
+      KTTextField(tecController: tecUsername,),
+      KTTextField(tecController: tecUsername),
+      KTTextField(tecController: tecUsername),
+
       Row(mainAxisAlignment: MainAxisAlignment.center,
         children: [
         TextButton(onPressed: onClickAceptar, child: Text("Aceptar"),),
