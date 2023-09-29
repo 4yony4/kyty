@@ -15,13 +15,13 @@ class LoginView extends StatelessWidget{
   }
 
   void onClickAceptar() async{
-
+    //print("DEBUG-----_>>>>>>>>>> "+tecUsername.text);
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: tecUsername.text,
           password: tecPassword.text
       );
-      print(">>>>>>>>>>>>>>>>>>>> ME HE LOGEADO!!!!!");
+      //print(">>>>>>>>>>>>>>>>>>>> ME HE LOGEADO!!!!!");
       Navigator.of(_context).popAndPushNamed("/homeview");
 
     } on FirebaseAuthException catch (e) {
@@ -48,30 +48,15 @@ class LoginView extends StatelessWidget{
       Text("Bienvenido a Kyty Login",style: TextStyle(fontSize: 25)),
 
       Padding(padding: EdgeInsets.symmetric(horizontal: 60, vertical: 16),
-        child: TextField(
-          controller: tecUsername,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Escribe tu usuario',
-          ),
-        ),
+        child: KTTextField(tecController: tecUsername,
+            sHint:'Escribe tu usuario'),
       ),
 
       Padding(padding: EdgeInsets.symmetric(horizontal: 60, vertical: 16),
-        child: TextFormField(
-          controller: tecPassword,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Escribe tu password',
-          ),
-          obscureText: true,
-        ),
+        child: KTTextField(tecController: tecPassword,
+            sHint:'Escribe tu Password',
+            blIsPassword: true),
       ),
-
-      KTTextField(tecController: tecUsername,sHint:''),
-      KTTextField(tecController: tecUsername,),
-      KTTextField(tecController: tecUsername),
-      KTTextField(tecController: tecUsername),
 
       Row(mainAxisAlignment: MainAxisAlignment.center,
         children: [

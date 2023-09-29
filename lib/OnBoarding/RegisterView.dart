@@ -1,13 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../Custom/KTTextField.dart';
+
 class RegisterView extends StatelessWidget{
 
   late BuildContext _context;
 
-  TextEditingController usernameController=TextEditingController();
-  TextEditingController passwordController=TextEditingController();
-  TextEditingController respassController=TextEditingController();
+  TextEditingController tecUsername=TextEditingController();
+  TextEditingController tecPassword=TextEditingController();
+  TextEditingController tecRespass=TextEditingController();
 
   SnackBar snackBar = SnackBar(
     content: Text('Yay! A SnackBar!'),
@@ -18,11 +20,11 @@ class RegisterView extends StatelessWidget{
   }
   void onClickAceptar() async {
     //print("DEBUG>>>> "+usernameController.text);
-    if(passwordController.text==respassController.text) {
+    if(tecPassword.text==tecRespass.text) {
       try {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: usernameController.text,
-          password: passwordController.text,
+          email: tecUsername.text,
+          password: tecPassword.text,
         );
 
         Navigator.of(_context).pushNamed("/loginview");
@@ -53,35 +55,20 @@ class RegisterView extends StatelessWidget{
       Text("Bienvenido a Kyty Register",style: TextStyle(fontSize: 25)),
 
       Padding(padding: EdgeInsets.symmetric(horizontal: 60, vertical: 16),
-        child: TextField(
-          controller: usernameController,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Escribe tu usuario',
-          ),
-        ),
+        child: KTTextField(tecController: tecUsername,
+            sHint:'Escribe tu usuario'),
       ),
 
       Padding(padding: EdgeInsets.symmetric(horizontal: 60, vertical: 16),
-        child: TextFormField(
-          controller: passwordController,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Escribe tu password',
-          ),
-          obscureText: true,
-        ),
+        child: KTTextField(tecController: tecPassword,
+            sHint:'Escribe tu password',
+            blIsPassword: true,),
       ),
 
       Padding(padding: EdgeInsets.symmetric(horizontal: 60, vertical: 16),
-        child: TextFormField(
-          controller: respassController,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Repite tu password',
-          ),
-          obscureText: true,
-        ),
+        child: KTTextField(tecController: tecRespass,
+          sHint:'Repite tu password',
+          blIsPassword: true,),
       ),
 
       Row(mainAxisAlignment: MainAxisAlignment.center,
