@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kyty/OnBoarding/RegisterView.dart';
@@ -5,7 +6,7 @@ import 'package:kyty/OnBoarding/RegisterView.dart';
 import '../Custom/KTTextField.dart';
 
 class LoginView extends StatelessWidget{
-
+  FirebaseFirestore db = FirebaseFirestore.instance;
   late BuildContext _context;
   TextEditingController tecUsername=TextEditingController();
   TextEditingController tecPassword=TextEditingController();
@@ -22,7 +23,18 @@ class LoginView extends StatelessWidget{
           password: tecPassword.text
       );
       //print(">>>>>>>>>>>>>>>>>>>> ME HE LOGEADO!!!!!");
-      Navigator.of(_context).popAndPushNamed("/homeview");
+
+      String uid=FirebaseAuth.instance.currentUser!.uid;
+      DocumentSnapshot<Map<String, dynamic>> datos=await db.collection("Usuarios").doc(uid).get();
+      if(datos.exists){
+        print("EL NOMBRE DEL USUARIO LOGEADO ES: "+datos.data()?["nombre"]);
+        print("LA EDAD DEL USUARIO LOGEADO ES: "+datos.data()!["edad"].toString());
+        Navigator.of(_context).popAndPushNamed("/homeview");
+      }
+      else{
+        Navigator.of(_context).popAndPushNamed("/perfilview");
+      }
+      //Navigator.of(_context).popAndPushNamed("/homeview");
 
     } on FirebaseAuthException catch (e) {
 
