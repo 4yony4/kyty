@@ -22,12 +22,13 @@ class RegisterView extends StatelessWidget{
     //print("DEBUG>>>> "+usernameController.text);
     if(tecPassword.text==tecRespass.text) {
       try {
+
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: tecUsername.text,
           password: tecPassword.text,
         );
 
-        Navigator.of(_context).pushNamed("/loginview");
+        Navigator.of(_context).pushNamed("/perfilview");
 
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {

@@ -1,6 +1,7 @@
 
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +14,8 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView>{
-  late BuildContext _context;
 
+  FirebaseFirestore db = FirebaseFirestore.instance;
   @override
   void initState() {
     // TODO: implement initState
@@ -26,10 +27,20 @@ class _SplashViewState extends State<SplashView>{
     await Future.delayed(Duration(seconds: 4));
     if (FirebaseAuth.instance.currentUser != null) {
 
-      Navigator.of(_context).popAndPushNamed("/homeview");
+      String uid=FirebaseAuth.instance.currentUser!.uid;
+      DocumentSnapshot<Map<String, dynamic>> datos=await db.collection("Usuarios").doc(uid).get();
+      if(datos.exists){
+        print("EL NOMBRE DEL USUARIO LOGEADO ES: "+datos.data()?["nombre"]);
+        print("LA EDAD DEL USUARIO LOGEADO ES: "+datos.data()!["edad"].toString());
+        Navigator.of(context).popAndPushNamed("/homeview");
+      }
+      else{
+        Navigator.of(context).popAndPushNamed("/perfilview");
+      }
+      
     }
     else{
-      Navigator.of(_context).popAndPushNamed("/loginview");
+      Navigator.of(context).popAndPushNamed("/loginview");
     }
 
   }
@@ -37,7 +48,6 @@ class _SplashViewState extends State<SplashView>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    _context=context;
 
     Column column=Column(
       children: [

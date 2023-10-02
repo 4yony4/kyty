@@ -11,8 +11,9 @@ class PerfilView extends StatelessWidget{
   TextEditingController tecNombre=TextEditingController();
   TextEditingController tecEdad=TextEditingController();
   FirebaseFirestore db = FirebaseFirestore.instance;
+  late BuildContext _context;
 
-  void onClickAceptar() {
+  void onClickAceptar() async{
 
     final usuario = <String, dynamic>{
       "nombre": tecNombre.text,
@@ -24,7 +25,9 @@ class PerfilView extends StatelessWidget{
 
     //Crear documento con ID NUESTRO (o proporsionado por nosotros)
     String uidUsuario= FirebaseAuth.instance.currentUser!.uid;
-    db.collection("Usuarios").doc(uidUsuario).set(usuario);
+    await db.collection("Usuarios").doc(uidUsuario).set(usuario);
+
+    Navigator.of(_context).popAndPushNamed("/homeview");
   }
 
   void onClickCencelar(){
@@ -33,7 +36,7 @@ class PerfilView extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-
+    this._context=context;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Perfil'),
