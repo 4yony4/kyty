@@ -29,6 +29,7 @@ class LoginView extends StatelessWidget{
       if(datos.exists){
         print("EL NOMBRE DEL USUARIO LOGEADO ES: "+datos.data()?["nombre"]);
         print("LA EDAD DEL USUARIO LOGEADO ES: "+datos.data()!["edad"].toString());
+        print("LA ALTURA DEL USUARIO LOGEADO ES: "+datos.data()!["altura"].toString());
         Navigator.of(_context).popAndPushNamed("/homeview");
       }
       else{

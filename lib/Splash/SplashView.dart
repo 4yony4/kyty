@@ -4,6 +4,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:kyty/FirestoreObjects/FbUsuario.dart';
 
 class SplashView extends StatefulWidget {
   @override
@@ -28,10 +29,29 @@ class _SplashViewState extends State<SplashView>{
     if (FirebaseAuth.instance.currentUser != null) {
 
       String uid=FirebaseAuth.instance.currentUser!.uid;
-      DocumentSnapshot<Map<String, dynamic>> datos=await db.collection("Usuarios").doc(uid).get();
-      if(datos.exists){
-        print("EL NOMBRE DEL USUARIO LOGEADO ES: "+datos.data()?["nombre"]);
-        print("LA EDAD DEL USUARIO LOGEADO ES: "+datos.data()!["edad"].toString());
+      //DocumentSnapshot<Map<String, dynamic>> datos=await db.collection("Usuarios").doc(uid).get();
+
+      /*DocumentReference<dynamic> reference=db
+          .collection("Usuarios")
+          .doc(uid)
+          .withConverter(fromFirestore: FbUsuario.fromFirestore,
+          toFirestore: (FbUsuario usuario, _) => usuario.toFirestore(),);*/
+
+      DocumentReference<FbUsuario> ref=db.collection("Usuarios")
+          .doc(uid)
+          .withConverter(fromFirestore: FbUsuario.fromFirestore,
+        toFirestore: (FbUsuario usuario, _) => usuario.toFirestore(),);
+
+      FbUsuario usuario;
+
+      //ref.get().then((value) => usuario=value.data()!);
+
+      DocumentSnapshot<FbUsuario> docSnap=await ref.get();
+      usuario=docSnap.data()!;
+
+      if(usuario!=null){
+        print("EL NOMBRE DEL USUARIO LOGEADO ES: "+usuario.nombre);
+        print("LA EDAD DEL USUARIO LOGEADO ES: "+usuario.edad.toString());
         Navigator.of(context).popAndPushNamed("/homeview");
       }
       else{
