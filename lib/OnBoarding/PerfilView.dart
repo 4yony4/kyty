@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:kyty/FirestoreObjects/FbUsuario.dart';
 import 'package:kyty/OnBoarding/LoginView.dart';
 
 import '../Custom/KTTextField.dart';
@@ -15,17 +16,13 @@ class PerfilView extends StatelessWidget{
 
   void onClickAceptar() async{
 
-    final usuario = <String, dynamic>{
-      "nombre": tecNombre.text,
-      "edad": int.parse(tecEdad.text),
-    };
+    FbUsuario usuario = new FbUsuario(nombre: tecNombre.text,
+        edad: int.parse(tecEdad.text), altura: 0,colorPelo: "");
 
-// Crea Documento con ID auto generado
-    //db.collection("Usuarios").add(usuario);
 
     //Crear documento con ID NUESTRO (o proporsionado por nosotros)
     String uidUsuario= FirebaseAuth.instance.currentUser!.uid;
-    await db.collection("Usuarios").doc(uidUsuario).set(usuario);
+    await db.collection("Usuarios").doc(uidUsuario).set(usuario.toFirestore());
 
     Navigator.of(_context).popAndPushNamed("/homeview");
   }

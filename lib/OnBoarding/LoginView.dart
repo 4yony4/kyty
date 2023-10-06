@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kyty/OnBoarding/RegisterView.dart';
 
 import '../Custom/KTTextField.dart';
+import '../FirestoreObjects/FbUsuario.dart';
 
 class LoginView extends StatelessWidget{
   FirebaseFirestore db = FirebaseFirestore.instance;
@@ -25,11 +26,20 @@ class LoginView extends StatelessWidget{
       //print(">>>>>>>>>>>>>>>>>>>> ME HE LOGEADO!!!!!");
 
       String uid=FirebaseAuth.instance.currentUser!.uid;
-      DocumentSnapshot<Map<String, dynamic>> datos=await db.collection("Usuarios").doc(uid).get();
-      if(datos.exists){
-        print("EL NOMBRE DEL USUARIO LOGEADO ES: "+datos.data()?["nombre"]);
-        print("LA EDAD DEL USUARIO LOGEADO ES: "+datos.data()!["edad"].toString());
-        print("LA ALTURA DEL USUARIO LOGEADO ES: "+datos.data()!["altura"].toString());
+
+      DocumentReference<FbUsuario> ref=db.collection("Usuarios")
+          .doc(uid)
+          .withConverter(fromFirestore: FbUsuario.fromFirestore,
+        toFirestore: (FbUsuario usuario, _) => usuario.toFirestore(),);
+
+
+      DocumentSnapshot<FbUsuario> docSnap=await ref.get();
+      FbUsuario usuario=docSnap.data()!;
+
+      if(usuario!=null){
+        print("EL NOMBRE DEL USUARIO LOGEADO ES: "+usuario.nombre);
+        print("LA EDAD DEL USUARIO LOGEADO ES: "+usuario.edad.toString());
+        print("LA ALTURA DEL USUARIO LOGEADO ES: "+usuario.altura.toString());
         Navigator.of(_context).popAndPushNamed("/homeview");
       }
       else{

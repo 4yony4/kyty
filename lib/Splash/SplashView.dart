@@ -29,25 +29,15 @@ class _SplashViewState extends State<SplashView>{
     if (FirebaseAuth.instance.currentUser != null) {
 
       String uid=FirebaseAuth.instance.currentUser!.uid;
-      //DocumentSnapshot<Map<String, dynamic>> datos=await db.collection("Usuarios").doc(uid).get();
-
-      /*DocumentReference<dynamic> reference=db
-          .collection("Usuarios")
-          .doc(uid)
-          .withConverter(fromFirestore: FbUsuario.fromFirestore,
-          toFirestore: (FbUsuario usuario, _) => usuario.toFirestore(),);*/
 
       DocumentReference<FbUsuario> ref=db.collection("Usuarios")
           .doc(uid)
           .withConverter(fromFirestore: FbUsuario.fromFirestore,
         toFirestore: (FbUsuario usuario, _) => usuario.toFirestore(),);
 
-      FbUsuario usuario;
-
-      //ref.get().then((value) => usuario=value.data()!);
 
       DocumentSnapshot<FbUsuario> docSnap=await ref.get();
-      usuario=docSnap.data()!;
+      FbUsuario usuario=docSnap.data()!;
 
       if(usuario!=null){
         print("EL NOMBRE DEL USUARIO LOGEADO ES: "+usuario.nombre);
