@@ -75,6 +75,7 @@ class _HomeViewState extends State<HomeView> {
     return PostGridCellView(sText: posts[index].titulo,
       dFontSize: 60,
       iColorCode: 0,
+      dHeight: 200,
     );
   }
 
