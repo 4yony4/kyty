@@ -5,6 +5,7 @@ import 'package:kyty/Custom/KTTextField.dart';
 import 'package:kyty/FirestoreObjects/FbPost.dart';
 
 import '../Custom/PostCellView.dart';
+import '../Custom/PostGridCellView.dart';
 
 class HomeView extends StatefulWidget{
 
@@ -47,18 +48,32 @@ class _HomeViewState extends State<HomeView> {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(title: Text("KYTY"),),
-      body: ListView.separated(
+      body: Center(
+        child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5),
+            itemCount: posts.length,
+            itemBuilder: creadorDeItemMatriz
+        ),
+      ),
+      /*body: ListView.separated(
         padding: EdgeInsets.all(8),
         itemCount: posts.length,
         itemBuilder: creadorDeItemLista,
         separatorBuilder: creadorDeSeparadorLista,
-      ),
+      ),*/
     );
   }
 
   Widget? creadorDeItemLista(BuildContext context, int index){
     return PostCellView(sText: posts[index].titulo,
-      dFontSize: 20,
+      dFontSize: 60,
+      iColorCode: 0,
+    );
+  }
+
+  Widget? creadorDeItemMatriz(BuildContext context, int index){
+    return PostGridCellView(sText: posts[index].titulo,
+      dFontSize: 60,
       iColorCode: 0,
     );
   }
