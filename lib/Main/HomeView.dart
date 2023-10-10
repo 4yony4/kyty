@@ -18,6 +18,7 @@ class _HomeViewState extends State<HomeView> {
 
   FirebaseFirestore db = FirebaseFirestore.instance;
   final List<FbPost> posts = [];
+  bool bIsList=false;
 
   @override
   void initState() {
@@ -49,7 +50,15 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       appBar: AppBar(title: Text("KYTY"),),
       body: Center(
-        child: GridView.builder(
+        child: bIsList?
+        ListView.separated(
+          padding: EdgeInsets.all(8),
+          itemCount: posts.length,
+          itemBuilder: creadorDeItemLista,
+          separatorBuilder: creadorDeSeparadorLista,
+        )
+        :
+        GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5),
             itemCount: posts.length,
             itemBuilder: creadorDeItemMatriz
