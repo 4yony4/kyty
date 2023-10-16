@@ -7,7 +7,7 @@ import 'package:kyty/FirestoreObjects/FbPost.dart';
 import '../Custom/BottomMenu.dart';
 import '../Custom/PostCellView.dart';
 import '../Custom/PostGridCellView.dart';
-import '../Interfaces/BottomMenuEvents.dart';
+
 
 class HomeView extends StatefulWidget {
 
@@ -16,16 +16,17 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> implements BottomMenuEvents{
+class _HomeViewState extends State<HomeView>{
 
   FirebaseFirestore db = FirebaseFirestore.instance;
   final List<FbPost> posts = [];
   bool bIsList=false;
-  
-  @override
+  String eve="Hola";
+
+
   void onBottonMenuPressed(int indice) {
     // TODO: implement onBottonMenuPressed
-    print("------>>>> HOME!!!!!!"+indice.toString());
+    print("------>>>> HOME!!!!!!"+indice.toString()+"---->>> "+obj.toString());
     setState(() {
       if(indice == 0){
         bIsList=true;
@@ -34,7 +35,7 @@ class _HomeViewState extends State<HomeView> implements BottomMenuEvents{
         bIsList=false;
       }
     });
-    
+
   }
 
   @override
@@ -69,7 +70,8 @@ class _HomeViewState extends State<HomeView> implements BottomMenuEvents{
       body: Center(
         child: celdasOLista(bIsList),
       ),
-      bottomNavigationBar: BottomMenu(events: this),
+      bottomNavigationBar: BottomMenu(onBotonesClicked: this.onBottonMenuPressed),
+      drawer: ,
       /*body: ListView.separated(
         padding: EdgeInsets.all(8),
         itemCount: posts.length,

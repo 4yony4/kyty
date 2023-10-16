@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../Interfaces/BottomMenuEvents.dart';
 
 class BottomMenu extends StatelessWidget{
 
-  BottomMenuEvents events;
+  Function(int indice)? onBotonesClicked;
 
-  BottomMenu({Key? key,required this.events
+  BottomMenu({Key? key,required this.onBotonesClicked
   }) : super(key: key);
 
   @override
@@ -16,25 +15,10 @@ class BottomMenu extends StatelessWidget{
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          TextButton(onPressed: () => events.onBottonMenuPressed(0), child: Icon(Icons.list,color: Colors.pink,)),
-          TextButton(onPressed: () => events.onBottonMenuPressed(1), child: Icon(Icons.grid_view,color: Colors.pink,)),
-          IconButton(onPressed: () => events.onBottonMenuPressed(2), icon: Image.asset("resources/logo_kyty.png"))
+          TextButton(onPressed: () => onBotonesClicked!(0), child: Icon(Icons.list,color: Colors.pink,)),
+          TextButton(onPressed: () => onBotonesClicked!(1), child: Icon(Icons.grid_view,color: Colors.pink,)),
+          IconButton(onPressed: () => onBotonesClicked!(2), icon: Image.asset("resources/logo_kyty.png"))
     ]
     );
   }
-
-  void boton1Pressed(){
-    botonesClick(0);
-  }
-  void boton2Pressed(){
-    botonesClick(1);
-  }
-  void boton3Pressed(){
-    botonesClick(2);
-  }
-
-
-        void botonesClick(int indice){
-          print(indice.toString());
-        }
 }
