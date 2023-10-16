@@ -4,21 +4,38 @@ import 'package:flutter/material.dart';
 import 'package:kyty/Custom/KTTextField.dart';
 import 'package:kyty/FirestoreObjects/FbPost.dart';
 
+import '../Custom/BottomMenu.dart';
 import '../Custom/PostCellView.dart';
 import '../Custom/PostGridCellView.dart';
+import '../Interfaces/BottomMenuEvents.dart';
 
-class HomeView extends StatefulWidget{
+class HomeView extends StatefulWidget {
 
 
   @override
   State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _HomeViewState extends State<HomeView> implements BottomMenuEvents{
 
   FirebaseFirestore db = FirebaseFirestore.instance;
   final List<FbPost> posts = [];
   bool bIsList=false;
+  
+  @override
+  void onBottonMenuPressed(int indice) {
+    // TODO: implement onBottonMenuPressed
+    print("------>>>> HOME!!!!!!"+indice.toString());
+    setState(() {
+      if(indice == 0){
+        bIsList=true;
+      }
+      else if(indice==1){
+        bIsList=false;
+      }
+    });
+    
+  }
 
   @override
   void initState() {
@@ -50,20 +67,9 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       appBar: AppBar(title: Text("KYTY"),),
       body: Center(
-        child: bIsList?
-        ListView.separated(
-          padding: EdgeInsets.all(8),
-          itemCount: posts.length,
-          itemBuilder: creadorDeItemLista,
-          separatorBuilder: creadorDeSeparadorLista,
-        )
-        :
-        GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5),
-            itemCount: posts.length,
-            itemBuilder: creadorDeItemMatriz
-        ),
+        child: celdasOLista(bIsList),
       ),
+      bottomNavigationBar: BottomMenu(events: this),
       /*body: ListView.separated(
         padding: EdgeInsets.all(8),
         itemCount: posts.length,
@@ -73,18 +79,21 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
+  /**
+   *
+   */
   Widget? creadorDeItemLista(BuildContext context, int index){
     return PostCellView(sText: posts[index].titulo,
-      dFontSize: 60,
+      dFontSize: 30,
       iColorCode: 0,
     );
   }
 
   Widget? creadorDeItemMatriz(BuildContext context, int index){
     return PostGridCellView(sText: posts[index].titulo,
-      dFontSize: 60,
+      dFontSize: 28,
       iColorCode: 0,
-      dHeight: 200,
+      dHeight: 300,
     );
   }
 
@@ -98,5 +107,24 @@ class _HomeViewState extends State<HomeView> {
       ],
     );
   }
+
+  Widget celdasOLista(bool isList) {
+    if (isList) {
+      return ListView.separated(
+          padding: EdgeInsets.all(8),
+          itemCount: posts.length,
+          itemBuilder: creadorDeItemLista,
+          separatorBuilder: creadorDeSeparadorLista,
+        );
+    } else {
+      return GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5),
+            itemCount: posts.length,
+            itemBuilder: creadorDeItemMatriz
+        );
+    }
+  }
+
+
 
 }

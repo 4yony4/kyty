@@ -8,7 +8,8 @@ class KTTextField extends StatelessWidget{
   double dPaddingH;
   double dPaddingV;
 
-  KTTextField({Key? key,this.sHint="",
+  KTTextField({Key? key,
+    this.sHint="",
     required this.tecController,
     this.blIsPassword=false,
     this.dPaddingH=60,

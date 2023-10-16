@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:kyty/Custom/BottomMenu.dart';
+import 'package:kyty/Interfaces/BottomMenuEvents.dart';
 import 'package:kyty/OnBoarding/RegisterView.dart';
 
 import '../Custom/KTTextField.dart';
 import '../FirestoreObjects/FbUsuario.dart';
 
-class LoginView extends StatelessWidget{
+class LoginView extends StatelessWidget implements BottomMenuEvents{
   FirebaseFirestore db = FirebaseFirestore.instance;
   late BuildContext _context;
   TextEditingController tecUsername=TextEditingController();
@@ -99,9 +101,16 @@ class LoginView extends StatelessWidget{
 
     Scaffold scaf=Scaffold(body: columna,
       //backgroundColor: Colors.deepOrange,
-    appBar: appBar,);
+    appBar: appBar,
+    bottomNavigationBar: BottomMenu(events: this),);
 
     return scaf;
+  }
+
+  @override
+  void onBottonMenuPressed(int indice) {
+    // TODO: implement onBottonMenuPressed
+    print("---------->>> LOGIN: "+indice.toString());
   }
 
 }
