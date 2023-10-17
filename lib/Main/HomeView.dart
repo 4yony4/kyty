@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:kyty/Custom/KTTextField.dart';
@@ -26,13 +28,16 @@ class _HomeViewState extends State<HomeView>{
 
   void onBottonMenuPressed(int indice) {
     // TODO: implement onBottonMenuPressed
-    print("------>>>> HOME!!!!!!"+indice.toString()+"---->>> "+obj.toString());
+    print("------>>>> HOME!!!!!!"+indice.toString()+"---->>> ");
     setState(() {
       if(indice == 0){
         bIsList=true;
       }
       else if(indice==1){
         bIsList=false;
+      }
+      else if(indice==2){
+        exit(0);
       }
     });
 
@@ -71,7 +76,7 @@ class _HomeViewState extends State<HomeView>{
         child: celdasOLista(bIsList),
       ),
       bottomNavigationBar: BottomMenu(onBotonesClicked: this.onBottonMenuPressed),
-      drawer: ,
+      //drawer: ,
       /*body: ListView.separated(
         padding: EdgeInsets.all(8),
         itemCount: posts.length,

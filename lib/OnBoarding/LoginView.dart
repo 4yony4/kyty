@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -101,15 +103,16 @@ class LoginView extends StatelessWidget{
     Scaffold scaf=Scaffold(body: columna,
       //backgroundColor: Colors.deepOrange,
     appBar: appBar,
-    //bottomNavigationBar: BottomMenu(onBotonesClicked: onBottonMenuPressed),
+    bottomNavigationBar: BottomMenu(onBotonesClicked: onBottonMenuPressed),
     );
 
     return scaf;
   }
 
   @override
-  void onBottonMenuPressed(int indice,String texto) {
+  void onBottonMenuPressed(int indice) {
     // TODO: implement onBottonMenuPressed
+    if(indice==0)exit(0);
     print("---------->>> LOGIN: "+indice.toString());
   }
 
