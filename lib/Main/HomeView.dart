@@ -2,13 +2,16 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kyty/Custom/KTTextField.dart';
 import 'package:kyty/FirestoreObjects/FbPost.dart';
+import 'package:kyty/OnBoarding/LoginView.dart';
 
 import '../Custom/BottomMenu.dart';
 import '../Custom/PostCellView.dart';
 import '../Custom/PostGridCellView.dart';
+import '../Custom/DrawerClass.dart';
 
 
 class HomeView extends StatefulWidget {
@@ -41,6 +44,23 @@ class _HomeViewState extends State<HomeView>{
       }
     });
 
+  }
+
+  void fHomeViewDrawerOnTap(int indice){
+    print("---->>>> "+indice.toString());
+    if(indice==0){
+      FirebaseAuth.instance.signOut();
+      //Navigator.of(context).pop();
+      //Navigator.of(context).popAndPushNamed("/loginview");
+      //Navigator.of(context).pushAndRemoveUntil(newRoute, (route) => false)
+      Navigator.of(context).pushAndRemoveUntil (
+        MaterialPageRoute (builder: (BuildContext context) =>  LoginView()),
+        ModalRoute.withName('/loginview'),
+      );
+    }
+    else if(indice==1){
+      exit(0);
+    }
   }
 
   @override
@@ -76,6 +96,8 @@ class _HomeViewState extends State<HomeView>{
         child: celdasOLista(bIsList),
       ),
       bottomNavigationBar: BottomMenu(onBotonesClicked: this.onBottonMenuPressed),
+
+      drawer: DrawerClass(onItemTap: fHomeViewDrawerOnTap,)
       //drawer: ,
       /*body: ListView.separated(
         padding: EdgeInsets.all(8),

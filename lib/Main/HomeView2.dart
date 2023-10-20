@@ -194,9 +194,7 @@ class _HomeViewState extends State<HomeView2>{
     // _advancedDrawerController.value = AdvancedDrawerValue.visible();
     _advancedDrawerController.showDrawer();
   }
-  /**
-   *
-   */
+
   Widget? creadorDeItemLista(BuildContext context, int index){
     return PostCellView(sText: posts[index].titulo,
       dFontSize: 30,
