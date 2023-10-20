@@ -2,7 +2,6 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eurekalib/grid_views/cards/EKPostCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:kyty/Custom/KTTextField.dart';
@@ -10,7 +9,7 @@ import 'package:kyty/FirestoreObjects/FbPost.dart';
 
 import '../Custom/BottomMenu.dart';
 import '../Custom/PostCellView.dart';
-
+import '../Custom/PostGridCellView.dart';
 
 
 class HomeView2 extends StatefulWidget {
@@ -206,7 +205,7 @@ class _HomeViewState extends State<HomeView2>{
   }
 
   Widget? creadorDeItemMatriz(BuildContext context, int index){
-    return EKPostCard(sText: posts[index].titulo,
+    return PostGridCellView(sText: posts[index].titulo,
       dFontSize: 28,
       iColorCode: 0,
       dHeight: 300,
