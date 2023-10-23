@@ -195,10 +195,17 @@ class _HomeViewState extends State<HomeView2>{
     _advancedDrawerController.showDrawer();
   }
 
+  void onItemListClicked(int index){
+    print("EL ELEMENTO DE LA LISTA QUE ACABA DE TOCARSE ES> "+index.toString());
+  }
+
+
   Widget? creadorDeItemLista(BuildContext context, int index){
     return PostCellView(sText: posts[index].titulo,
       dFontSize: 30,
       iColorCode: 0,
+      iPosicion: index,
+      onItemListClickedFun: onItemListClicked,
     );
   }
 

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:kyty/Custom/KTTextField.dart';
 import 'package:kyty/FirestoreObjects/FbPost.dart';
 import 'package:kyty/OnBoarding/LoginView.dart';
+import 'package:kyty/Singletone/DataHolder.dart';
 
 import '../Custom/BottomMenu.dart';
 import '../Custom/PostCellView.dart';
@@ -108,6 +109,13 @@ class _HomeViewState extends State<HomeView>{
     );
   }
 
+  void onItemListClicked(int index){
+    DataHolder().selectedPost=posts[index];
+    Navigator.of(context).pushNamed("/postview");
+    //print("EL ELEMENTO DE LA LISTA QUE ACABA DE TOCARSE ES> "+index.toString());
+    
+  }
+
   /**
    *
    */
@@ -115,6 +123,8 @@ class _HomeViewState extends State<HomeView>{
     return PostCellView(sText: posts[index].titulo,
       dFontSize: 30,
       iColorCode: 0,
+      iPosicion: index,
+      onItemListClickedFun:onItemListClicked
     );
   }
 
