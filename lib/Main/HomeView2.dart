@@ -214,6 +214,8 @@ class _HomeViewState extends State<HomeView2>{
       dFontSize: 28,
       iColorCode: 0,
       dHeight: 300,
+      iPosicion: index,
+      onItemListClickedFun: onItemListClicked,
     );
   }
 

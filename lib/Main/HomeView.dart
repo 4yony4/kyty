@@ -97,15 +97,15 @@ class _HomeViewState extends State<HomeView>{
         child: celdasOLista(bIsList),
       ),
       bottomNavigationBar: BottomMenu(onBotonesClicked: this.onBottonMenuPressed),
-
-      drawer: DrawerClass(onItemTap: fHomeViewDrawerOnTap,)
-      //drawer: ,
-      /*body: ListView.separated(
-        padding: EdgeInsets.all(8),
-        itemCount: posts.length,
-        itemBuilder: creadorDeItemLista,
-        separatorBuilder: creadorDeSeparadorLista,
-      ),*/
+      drawer: DrawerClass(onItemTap: fHomeViewDrawerOnTap,),
+      floatingActionButton:FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed("/postcreateview");
+        },
+        child: Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
+      /**/
     );
   }
 
@@ -133,6 +133,8 @@ class _HomeViewState extends State<HomeView>{
       dFontSize: 28,
       iColorCode: 0,
       dHeight: 300,
+      iPosicion: index,
+      onItemListClickedFun:onItemListClicked
     );
   }
 

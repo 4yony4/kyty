@@ -5,6 +5,7 @@ import 'package:kyty/Main/HomeView.dart';
 import 'package:kyty/Main/HomeView2.dart';
 import 'package:kyty/Splash/SplashView.dart';
 
+import 'Main/PostCreateView.dart';
 import 'Main/PostView.dart';
 import 'OnBoarding/LoginView.dart';
 import 'OnBoarding/PerfilView.dart';
@@ -24,8 +25,7 @@ class KytyApp extends StatelessWidget{
          '/splashview':(context) => SplashView(),
          '/perfilview':(context) => PerfilView(),
          '/postview':(context) => PostView(),
-
-
+         '/postcreateview':(context) => PostCreateView(),
        },
      initialRoute: '/homeview',
    );

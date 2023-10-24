@@ -21,7 +21,7 @@ class FbPost{
     return FbPost(
         titulo: data?['titulo'],
         cuerpo: data?['cuerpo'],
-        sUrlImg: data?['sUrlImg']
+        sUrlImg: data?['sUrlImg'] != null ? data!['sUrlImg'] : ""
     );
   }
 
