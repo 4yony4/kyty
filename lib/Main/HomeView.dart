@@ -111,6 +111,7 @@ class _HomeViewState extends State<HomeView>{
 
   void onItemListClicked(int index){
     DataHolder().selectedPost=posts[index];
+    DataHolder().saveSelectedPostInCache();
     Navigator.of(context).pushNamed("/postview");
     //print("EL ELEMENTO DE LA LISTA QUE ACABA DE TOCARSE ES> "+index.toString());
     

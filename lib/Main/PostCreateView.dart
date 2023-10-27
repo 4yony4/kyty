@@ -8,7 +8,7 @@ import 'package:kyty/Singletone/DataHolder.dart';
 import '../Custom/KTTextField.dart';
 
 class PostCreateView extends StatelessWidget{
-  FirebaseFirestore db = FirebaseFirestore.instance;
+
   TextEditingController tecTitulo=TextEditingController();
   TextEditingController tecCuerpo=TextEditingController();
 
@@ -34,14 +34,8 @@ class PostCreateView extends StatelessWidget{
                 titulo: tecTitulo.text,
                 cuerpo: tecCuerpo.text,
                 sUrlImg: "");
+            DataHolder().insertPostEnFB(postNuevo);
 
-              CollectionReference<FbPost> postsRef = db.collection("Posts")
-              .withConverter(
-              fromFirestore: FbPost.fromFirestore,
-              toFirestore: (FbPost post, _) => post.toFirestore(),
-              );
-
-              postsRef.add(postNuevo);
           }, child: Text("Postear"))
         ],
 
