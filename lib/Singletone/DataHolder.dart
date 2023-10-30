@@ -9,7 +9,7 @@ class DataHolder {
 
   String sNombre="Kyty DataHolder";
   late String sPostTitle;
-  late FbPost selectedPost;
+  FbPost? selectedPost;
   FirebaseFirestore db = FirebaseFirestore.instance;
 
   DataHolder._internal() {
@@ -37,13 +37,16 @@ class DataHolder {
   }
 
   void saveSelectedPostInCache() async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('fbpost_titulo', selectedPost.titulo);
-    prefs.setString('fbpost_cuerpo', selectedPost.cuerpo);
-    prefs.setString('fbpost_surlimg', selectedPost.sUrlImg);
+    if(selectedPost!=null){
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('fbpost_titulo', selectedPost!.titulo);
+      prefs.setString('fbpost_cuerpo', selectedPost!.cuerpo);
+      prefs.setString('fbpost_surlimg', selectedPost!.sUrlImg);
+    }
+
   }
 
-  Future<FbPost> loadCachedFbPost() async{
+  Future<FbPost?> loadCachedFbPost() async{
     if(selectedPost!=null) return selectedPost;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();

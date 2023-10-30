@@ -10,17 +10,25 @@ class PostView extends StatefulWidget{
 }
 
 class _PostViewState extends State<PostView> {
-  late FbPost selectedPost;
+  FbPost selectedPost = FbPost(cuerpo: "",sUrlImg: "",titulo: "");
 
   @override
   void initState(){
     // TODO: implement initState
     super.initState();
+    cargarPostGuardadoEnCache();
+    //setState(() async {
+      //selectedPost=await DataHolder().loadCachedFbPost();
+    //});
 
-    setState(() async {
-      selectedPost=await DataHolder().loadCachedFbPost();
+  }
+
+  void cargarPostGuardadoEnCache() async{
+    var temp1=await DataHolder().loadCachedFbPost();
+    print("----------->>>>> "+temp1!.titulo);
+    setState(() {
+      selectedPost=temp1;
     });
-
   }
 
   @override
