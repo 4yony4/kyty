@@ -10,24 +10,23 @@ class PostView extends StatefulWidget{
 }
 
 class _PostViewState extends State<PostView> {
-  FbPost selectedPost = FbPost(cuerpo: "",sUrlImg: "",titulo: "");
+  FbPost _datosPost = FbPost(cuerpo: "NAN",sUrlImg: "NAN",titulo: "NAN");
+  bool blPostLoaded=false;
 
   @override
   void initState(){
     // TODO: implement initState
     super.initState();
     cargarPostGuardadoEnCache();
-    //setState(() async {
-      //selectedPost=await DataHolder().loadCachedFbPost();
-    //});
-
   }
 
   void cargarPostGuardadoEnCache() async{
-    var temp1=await DataHolder().loadCachedFbPost();
-    print("----------->>>>> "+temp1!.titulo);
+    var temp1=await DataHolder().loadFbPost();
+    //print("----------->>>>> "+temp1!.titulo);
     setState(() {
-      selectedPost=temp1;
+
+      _datosPost=temp1!;
+      blPostLoaded=true;
     });
   }
 
@@ -37,15 +36,17 @@ class _PostViewState extends State<PostView> {
 
     return Scaffold(
       appBar: AppBar(title: Text(DataHolder().sNombre)),
-      body: Column(
+      body: blPostLoaded ? Column(
         children: [
-          Text(selectedPost.titulo),
-          Text(selectedPost.cuerpo),
-          Image.network(selectedPost.sUrlImg),
+          Text(_datosPost.titulo),
+          Text(_datosPost.cuerpo),
+          Image.network(_datosPost.sUrlImg),
           TextButton(onPressed: null, child: Text("Like"))
         ],
 
-      ),
+      )
+      :
+      CircularProgressIndicator(),
     );
 
   }

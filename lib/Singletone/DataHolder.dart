@@ -46,9 +46,10 @@ class DataHolder {
 
   }
 
-  Future<FbPost?> loadCachedFbPost() async{
+  Future<FbPost?> loadFbPost() async{
     if(selectedPost!=null) return selectedPost;
 
+    await Future.delayed(Duration(seconds: 10));
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? fbpost_titulo = prefs.getString('fbpost_titulo');
     fbpost_titulo ??= "";
