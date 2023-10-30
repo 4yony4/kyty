@@ -24,7 +24,6 @@ class DataHolder {
 
   factory DataHolder(){
     return _dataHolder;
-
   }
 
   void insertPostEnFB(FbPost postNuevo){
