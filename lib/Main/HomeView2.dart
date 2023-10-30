@@ -4,8 +4,10 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:kyty/Custom/KTTextField.dart';
 import 'package:kyty/FirestoreObjects/FbPost.dart';
+import 'package:kyty/Singletone/DataHolder.dart';
 
 import '../Custom/BottomMenu.dart';
 import '../Custom/PostCellView.dart';
@@ -50,6 +52,15 @@ class _HomeViewState extends State<HomeView2>{
     // TODO: implement initState
     super.initState();
     descargarPosts();
+    loadGeoLocator();
+
+
+  }
+
+  void loadGeoLocator() async{
+    Position pos=await DataHolder().geolocAdmin.determinePosition();
+    print("------------>>>> "+pos.toString());
+    DataHolder().geolocAdmin.registrarCambiosLoc();
 
   }
 

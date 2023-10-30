@@ -1,0 +1,10 @@
+
+
+class FirebaseAdmin{
+
+
+
+  void holamundo(){
+    
+  }
+}

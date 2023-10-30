@@ -18,7 +18,7 @@ class KytyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     MaterialApp materialApp;
-    if(kIsWeb){
+    if (kIsWeb) {
       materialApp=MaterialApp(title: "KyTy Miau!",
         routes: {
           '/loginview':(context) => LoginView(),
@@ -31,12 +31,13 @@ class KytyApp extends StatelessWidget{
         },
         initialRoute: '/homeview',
       );
-    }else{
+    }
+    else{
       materialApp=MaterialApp(title: "KyTy Miau!",
         routes: {
           '/loginview':(context) => LoginView(),
           '/registerview':(context) => RegisterView(),
-          '/homeview':(context) => HomeView(),
+          '/homeview':(context) => HomeView2(),
           '/splashview':(context) => SplashView(),
           '/perfilview':(context) => PerfilView(),
           '/postview':(context) => PostView(),

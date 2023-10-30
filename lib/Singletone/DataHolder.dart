@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../FirestoreObjects/FbPost.dart';
+import 'FirebaseAdmin.dart';
+import 'GeolocAdmin.dart';
 
 class DataHolder {
 
@@ -11,6 +13,8 @@ class DataHolder {
   late String sPostTitle;
   FbPost? selectedPost;
   FirebaseFirestore db = FirebaseFirestore.instance;
+  FirebaseAdmin fbadmin=FirebaseAdmin();
+  GeolocAdmin geolocAdmin = GeolocAdmin();
 
   DataHolder._internal() {
 
