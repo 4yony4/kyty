@@ -42,6 +42,8 @@ dependencies:
   eurekalib: ^0.0.2
   shared_preferences: ^2.2.2
   geolocator: ^10.1.0
+  firebase_storage: ^11.4.1
+  image_picker: ^1.0.4
 
 
 
