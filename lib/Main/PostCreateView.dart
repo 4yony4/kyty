@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -45,19 +46,45 @@ class _PostCreateViewState extends State<PostCreateView> {
 
   }
 
-  void subirImagen() async {
+  void subirPost() async {
+    //-----------------------INICIO DE SUBIR IMAGEN--------
     // Create a storage reference from our app
     final storageRef = FirebaseStorage.instance.ref();
 
 // Create a reference to "mountains.jpg"
-    final rutaAFicheroEnNube = storageRef.child("imgs/mountains.jpg");
-
+    String rutaEnNube=
+        "posts/"+FirebaseAuth.instance.currentUser!.uid+"/imgs/"+
+            DateTime.now().millisecondsSinceEpoch.toString()+".jpg";
+    print("RUTA DONDE VA A GUARDARSE LA IMAGEN: "+rutaEnNube);
+    
+    final rutaAFicheroEnNube = storageRef.child(rutaEnNube);
+    // Create the file metadata
+    final metadata = SettableMetadata(contentType: "image/jpeg");
     try {
-      await rutaAFicheroEnNube.putFile(_imagePreview);
+      await rutaAFicheroEnNube.putFile(_imagePreview,metadata);
+
     } on FirebaseException catch (e) {
+      print("ERROR AL SUBIR IMAGEN: "+e.toString());
       // ...
     }
+
     print("SE HA SUBIDO LA IMAGEN");
+
+    String imgUrl=await rutaAFicheroEnNube.getDownloadURL();
+
+    print("URL DE DESCARGA: "+imgUrl);
+
+    //-----------------------FIN DE SUBIR IMAGEN--------
+
+    //-----------------------INICIO DE SUBIR POST--------
+
+    FbPost postNuevo=new FbPost(
+        titulo: tecTitulo.text,
+        cuerpo: tecCuerpo.text,
+        sUrlImg: imgUrl);
+    DataHolder().insertPostEnFB(postNuevo);
+
+    //-----------------------POST DE SUBIR POST--------
   }
 
   @override
@@ -85,14 +112,10 @@ class _PostCreateViewState extends State<PostCreateView> {
               ],
             ),
             TextButton(onPressed: () {
-              subirImagen();
+              subirPost();
 
 
-              /*FbPost postNuevo=new FbPost(
-                  titulo: tecTitulo.text,
-                  cuerpo: tecCuerpo.text,
-                  sUrlImg: "");
-              DataHolder().insertPostEnFB(postNuevo);*/
+              /**/
 
             }, child: Text("Postear"))
           ],
