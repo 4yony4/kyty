@@ -26,6 +26,7 @@ class _HomeViewState extends State<HomeView>{
 
   FirebaseFirestore db = FirebaseFirestore.instance;
   final List<FbPost> posts = [];
+  final Map<String,FbPost> mapPosts = Map();
   bool bIsList=false;
   String eve="Hola";
 
@@ -73,27 +74,86 @@ class _HomeViewState extends State<HomeView>{
   }
 
   void descargarPosts() async{
+
+
+    CollectionReference<FbPost> ref=db.collection("Posts")
+        .withConverter(fromFirestore: FbPost
+        .fromFirestore,
+      toFirestore: (FbPost post, _) => post.toFirestore(),);
+
+    ref.snapshots().listen(datosDescargados, onError: descargaPostError,);
+
+  }
+
+  void datosDescargados(QuerySnapshot<FbPost> postsDescargados){
+    print("NUMERO DE POSTS ACTUALIZADOS>>>> "+postsDescargados.docChanges.length.toString());
+
+    for(int i=0;i<postsDescargados.docChanges.length;i++){
+        FbPost temp = postsDescargados.docChanges[i].doc.data()!;
+        mapPosts[postsDescargados.docChanges[i].doc.id]=temp;
+
+    }
+
+    setState(() {
+      posts.clear();
+      posts.addAll(mapPosts.values);
+    });
+
+    /*for(int i=0;i<postsDescargados.docChanges.length;i++){
+      setState(() {
+        FbPost temp = postsDescargados.docChanges[i].doc.data()!;
+        posts.
+        posts.add(postsDescargados.docChanges[i].doc.data()!);
+      });
+    }*/
+
+
+    /*posts.clear();
+    for(int i=0;i<postsDescargados.docs.length;i++){
+      setState(() {
+        posts.add(postsDescargados.docs[i].data());
+      });
+    }*/
+  }
+
+  void descargaPostError(error){
+    print("Listen failed: $error");
+  }
+
+  void descargarPostsOLD() async{
+    posts.clear();
+
     CollectionReference<FbPost> ref=db.collection("Posts")
         .withConverter(fromFirestore: FbPost.fromFirestore,
       toFirestore: (FbPost post, _) => post.toFirestore(),);
 
 
     QuerySnapshot<FbPost> querySnapshot=await ref.get();
+
     for(int i=0;i<querySnapshot.docs.length;i++){
       setState(() {
         posts.add(querySnapshot.docs[i].data());
       });
-
     }
-    
-
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(title: Text("KYTY"),),
+      appBar: AppBar(title: Text("KYTY"),
+          actions: [
+            /*IconButton(
+              icon: const Icon(Icons.refresh),
+              tooltip: 'Refrescar Lista',
+              onPressed: () {
+                descargarPosts();
+                //ScaffoldMessenger.of(context).showSnackBar(
+                //    const SnackBar(content: Text('This is a snackbar')));
+              },
+            )*/
+          ]
+      ),
       body: Center(
         child: celdasOLista(bIsList),
       ),
