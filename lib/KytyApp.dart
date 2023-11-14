@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:kyty/Main/HomeView.dart';
 import 'package:kyty/Main/HomeView2.dart';
 import 'package:kyty/OnBoarding/PhoneLoginView.dart';
+import 'package:kyty/Singletone/DataHolder.dart';
 import 'package:kyty/Splash/SplashView.dart';
 
 import 'Main/PostCreateView.dart';
@@ -18,6 +19,8 @@ class KytyApp extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    DataHolder().initPlatformAdmin(context);
+
     MaterialApp materialApp;
     if (kIsWeb) {
       materialApp=MaterialApp(title: "KyTy Miau!",
@@ -30,7 +33,7 @@ class KytyApp extends StatelessWidget{
           '/postview':(context) => PostView(),
           '/postcreateview':(context) => PostCreateView(),
         },
-        initialRoute: '/homeview',
+        initialRoute: '/splashview',
       );
     }
     else{
@@ -44,7 +47,7 @@ class KytyApp extends StatelessWidget{
           '/postview':(context) => PostView(),
           '/postcreateview':(context) => PostCreateView(),
         },
-        initialRoute: '/homeview',
+        initialRoute: '/splashview',
       );
     }
 

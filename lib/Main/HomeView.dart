@@ -194,7 +194,7 @@ class _HomeViewState extends State<HomeView>{
     return PostGridCellView(sText: posts[index].titulo,
       dFontSize: 28,
       iColorCode: 0,
-      dHeight: 300,
+      dHeight: DataHolder().platformAdmin.getScreenHeight()*0.5,
       iPosicion: index,
       onItemListClickedFun:onItemListClicked
     );

@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kyty/FirestoreObjects/FbUsuario.dart';
+import 'package:kyty/Singletone/DataHolder.dart';
 
 class SplashView extends StatefulWidget {
   @override
@@ -61,8 +62,9 @@ class _SplashViewState extends State<SplashView>{
 
     Column column=Column(
       children: [
-        Image.asset("resources/logo_kyty2.png",width: 300,
-            height: 450),
+        Image.asset("resources/logo_kyty2.png",
+            width: DataHolder().platformAdmin.getScreenWidth()*0.6,
+            height: DataHolder().platformAdmin.getScreenWidth()*0.6),
         CircularProgressIndicator()
       ],
     );

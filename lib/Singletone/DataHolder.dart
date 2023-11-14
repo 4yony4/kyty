@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../FirestoreObjects/FbPost.dart';
 import 'FirebaseAdmin.dart';
 import 'GeolocAdmin.dart';
+import 'PlatformAdmin.dart';
 
 class DataHolder {
 
@@ -15,15 +17,19 @@ class DataHolder {
   FirebaseFirestore db = FirebaseFirestore.instance;
   FirebaseAdmin fbadmin=FirebaseAdmin();
   GeolocAdmin geolocAdmin = GeolocAdmin();
+  late PlatformAdmin platformAdmin;
 
   DataHolder._internal() {
 
   }
 
   void initDataHolder(){
-
     sPostTitle="Titulo de Post";
     //loadCachedFbPost();
+  }
+
+  void initPlatformAdmin(BuildContext context){
+    platformAdmin=PlatformAdmin(context: context);
   }
 
   factory DataHolder(){
