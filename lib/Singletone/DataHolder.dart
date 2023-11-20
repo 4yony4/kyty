@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../FirestoreObjects/FbPost.dart';
 import 'FirebaseAdmin.dart';
 import 'GeolocAdmin.dart';
+import 'HttpAdmin.dart';
 import 'PlatformAdmin.dart';
 
 class DataHolder {
@@ -18,6 +19,7 @@ class DataHolder {
   FirebaseAdmin fbadmin=FirebaseAdmin();
   GeolocAdmin geolocAdmin = GeolocAdmin();
   late PlatformAdmin platformAdmin;
+  HttpAdmin httpAdmin=HttpAdmin();
 
   DataHolder._internal() {
 
