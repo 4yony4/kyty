@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../FirestoreObjects/FbPost.dart';
+import '../FirestoreObjects/FbUsuario.dart';
 import 'FirebaseAdmin.dart';
 import 'GeolocAdmin.dart';
 import 'HttpAdmin.dart';
@@ -20,6 +22,7 @@ class DataHolder {
   GeolocAdmin geolocAdmin = GeolocAdmin();
   late PlatformAdmin platformAdmin;
   HttpAdmin httpAdmin=HttpAdmin();
+  late FbUsuario usuario;
 
   DataHolder._internal() {
 
@@ -58,6 +61,20 @@ class DataHolder {
 
   }
 
+  Future<FbUsuario?> loadFbUsuario() async{
+    String uid=FirebaseAuth.instance.currentUser!.uid;
+
+    DocumentReference<FbUsuario> ref=db.collection("Usuarios")
+        .doc(uid)
+        .withConverter(fromFirestore: FbUsuario.fromFirestore,
+      toFirestore: (FbUsuario usuario, _) => usuario.toFirestore(),);
+
+
+    DocumentSnapshot<FbUsuario> docSnap=await ref.get();
+    usuario=docSnap.data()!;
+    return usuario;
+  }
+
   Future<FbPost?> loadFbPost() async{
     if(selectedPost!=null) return selectedPost;
 
@@ -76,5 +93,10 @@ class DataHolder {
     print("SHARED PREFERENCES!!!  ----->>>>> "+fbpost_titulo);
     selectedPost=FbPost(titulo: fbpost_titulo, cuerpo: fbpost_cuerpo, sUrlImg: fbpost_surlimg);
     return selectedPost;
+  }
+
+  void suscribeACambiosGPSUsuario(){
+    geolocAdmin.registrarCambiosLoc();
+    fbadmin.actualizarPerfilUsuario(usuario);
   }
 }

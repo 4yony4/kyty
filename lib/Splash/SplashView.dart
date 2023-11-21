@@ -29,16 +29,7 @@ class _SplashViewState extends State<SplashView>{
     await Future.delayed(Duration(seconds: 40));
     if (FirebaseAuth.instance.currentUser != null) {
 
-      String uid=FirebaseAuth.instance.currentUser!.uid;
-
-      DocumentReference<FbUsuario> ref=db.collection("Usuarios")
-          .doc(uid)
-          .withConverter(fromFirestore: FbUsuario.fromFirestore,
-        toFirestore: (FbUsuario usuario, _) => usuario.toFirestore(),);
-
-
-      DocumentSnapshot<FbUsuario> docSnap=await ref.get();
-      FbUsuario usuario=docSnap.data()!;
+      FbUsuario? usuario= await DataHolder().loadFbUsuario();
 
       if(usuario!=null){
         print("EL NOMBRE DEL USUARIO LOGEADO ES: "+usuario.nombre);

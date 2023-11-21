@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kyty/Custom/BottomMenu.dart';
 import 'package:kyty/OnBoarding/RegisterView.dart';
+import 'package:kyty/Singletone/DataHolder.dart';
 
 import '../Custom/KTTextField.dart';
 import '../FirestoreObjects/FbUsuario.dart';
@@ -28,16 +29,7 @@ class LoginView extends StatelessWidget{
       );
       //print(">>>>>>>>>>>>>>>>>>>> ME HE LOGEADO!!!!!");
 
-      String uid=FirebaseAuth.instance.currentUser!.uid;
-
-      DocumentReference<FbUsuario> ref=db.collection("Usuarios")
-          .doc(uid)
-          .withConverter(fromFirestore: FbUsuario.fromFirestore,
-        toFirestore: (FbUsuario usuario, _) => usuario.toFirestore(),);
-
-
-      DocumentSnapshot<FbUsuario> docSnap=await ref.get();
-      FbUsuario usuario=docSnap.data()!;
+      FbUsuario? usuario= await DataHolder().loadFbUsuario();
 
       if(usuario!=null){
         print("EL NOMBRE DEL USUARIO LOGEADO ES: "+usuario.nombre);
