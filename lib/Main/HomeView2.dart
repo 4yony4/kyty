@@ -60,7 +60,7 @@ class _HomeViewState extends State<HomeView2>{
   void loadGeoLocator() async{
     Position pos=await DataHolder().geolocAdmin.determinePosition();
     print("------------>>>> "+pos.toString());
-    DataHolder().geolocAdmin.registrarCambiosLoc();
+    //DataHolder().geolocAdmin.registrarCambiosLoc();
 
   }
 

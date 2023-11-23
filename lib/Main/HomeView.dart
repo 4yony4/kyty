@@ -72,6 +72,7 @@ class _HomeViewState extends State<HomeView>{
     super.initState();
     descargarPosts();
     determinarTempLocal();
+    DataHolder().suscribeACambiosGPSUsuario();
 
   }
 

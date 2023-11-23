@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../FirestoreObjects/FbPost.dart';
@@ -63,7 +64,7 @@ class DataHolder {
 
   Future<FbUsuario?> loadFbUsuario() async{
     String uid=FirebaseAuth.instance.currentUser!.uid;
-
+    print("UID DE DESCARGA loadFbUsuario------------->>>> ${uid}");
     DocumentReference<FbUsuario> ref=db.collection("Usuarios")
         .doc(uid)
         .withConverter(fromFirestore: FbUsuario.fromFirestore,
@@ -71,6 +72,7 @@ class DataHolder {
 
 
     DocumentSnapshot<FbUsuario> docSnap=await ref.get();
+    print("docSnap DE DESCARGA loadFbUsuario------------->>>> ${docSnap.data()}");
     usuario=docSnap.data()!;
     return usuario;
   }
@@ -96,7 +98,12 @@ class DataHolder {
   }
 
   void suscribeACambiosGPSUsuario(){
-    geolocAdmin.registrarCambiosLoc();
+    geolocAdmin.registrarCambiosLoc(posicionDelMovilCambio);
+
+  }
+
+  void posicionDelMovilCambio(Position? position){
+    usuario.geoloc=GeoPoint(position!.latitude, position.longitude);
     fbadmin.actualizarPerfilUsuario(usuario);
   }
 }
