@@ -166,7 +166,7 @@ class _HomeViewState extends State<HomeView>{
       body: Center(
         child: celdasOLista(bIsList),
       ),
-      bottomNavigationBar: BottomMenu(onBotonesClicked: this.onBottonMenuPressed),
+      //bottomNavigationBar: BottomMenu(onBotonesClicked: this.onBottonMenuPressed),
       drawer: DrawerClass(onItemTap: fHomeViewDrawerOnTap,),
       floatingActionButton:FloatingActionButton(
         onPressed: () {

@@ -5,7 +5,7 @@ import 'package:geolocator/geolocator.dart';
 
 class GeolocAdmin{
 
-
+  late StreamSubscription<Position> positionStream;
   /// Determine the current position of the device.
   ///
   /// When the location services are not enabled or permissions
@@ -13,6 +13,7 @@ class GeolocAdmin{
   Future<Position> determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
+
 
     // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -53,9 +54,8 @@ class GeolocAdmin{
       distanceFilter: 0,
     );
     //print("ENTRE!!!!!!!!!!");
-    StreamSubscription<Position> positionStream =
-      Geolocator.getPositionStream(locationSettings: locationSettings)
-          .listen(funCambioPos);
+    positionStream =
+    Geolocator.getPositionStream(locationSettings: locationSettings).listen(funCambioPos);
   }
 
 }

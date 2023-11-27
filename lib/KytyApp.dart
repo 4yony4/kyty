@@ -8,6 +8,7 @@ import 'package:kyty/OnBoarding/PhoneLoginView.dart';
 import 'package:kyty/Singletone/DataHolder.dart';
 import 'package:kyty/Splash/SplashView.dart';
 
+import 'Main/MapaView.dart';
 import 'Main/PostCreateView.dart';
 import 'Main/PostView.dart';
 import 'OnBoarding/LoginView.dart';
@@ -41,11 +42,13 @@ class KytyApp extends StatelessWidget{
         routes: {
           '/loginview':(context) => PhoneLoginView(),
           '/registerview':(context) => RegisterView(),
-          '/homeview':(context) => HomeView(),
+          '/homeview':(context) => MapaView(),//HomeView(),
           '/splashview':(context) => SplashView(),
           '/perfilview':(context) => PerfilView(),
           '/postview':(context) => PostView(),
           '/postcreateview':(context) => PostCreateView(),
+          '/mapaview':(context) => MapaView(),
+
         },
         initialRoute: '/splashview',
       );

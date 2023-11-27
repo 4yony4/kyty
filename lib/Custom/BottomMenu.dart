@@ -9,25 +9,9 @@ class BottomMenu extends StatelessWidget{
   BottomMenu({Key? key,required this.onBotonesClicked
   }) : super(key: key);
 
-  void fNombre1(String nombre){
-    print("DAM1 --->>>"+nombre);
-  }
-
-  void fNombre2(String nombre){
-    print("DAM2 --->>>"+nombre);
-  }
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    onPressed=fNombre1;
-    onPressed!("Yony");//=fNombre1("Yony")
-    onPressed=fNombre2;
-    onPressed!("Marco");//=fNombre2("Marco")
-    onPressed!("Elena");//=fNombre2("Elena")
-    onPressed=fNombre1;
-    onPressed!("Carlos");//=fNombre1("Carlos")
-    onPressed!("David");//=fNombre1("David")
 
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
