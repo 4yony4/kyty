@@ -30,6 +30,7 @@ class _SplashViewState extends State<SplashView>{
     if (FirebaseAuth.instance.currentUser != null) {
 
       FbUsuario? usuario= await DataHolder().loadFbUsuario();
+      DataHolder().suscribeACambiosGPSUsuario();
 
       if(usuario!=null){
         print("EL NOMBRE DEL USUARIO LOGEADO ES: "+usuario.nombre);
