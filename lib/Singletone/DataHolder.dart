@@ -23,7 +23,7 @@ class DataHolder {
   GeolocAdmin geolocAdmin = GeolocAdmin();
   late PlatformAdmin platformAdmin;
   HttpAdmin httpAdmin=HttpAdmin();
-  late FbUsuario usuario;
+  FbUsuario? usuario;
 
   DataHolder._internal() {
 
@@ -73,7 +73,7 @@ class DataHolder {
 
     DocumentSnapshot<FbUsuario> docSnap=await ref.get();
     print("docSnap DE DESCARGA loadFbUsuario------------->>>> ${docSnap.data()}");
-    usuario=docSnap.data()!;
+    usuario=docSnap.data();
     return usuario;
   }
 
@@ -103,7 +103,7 @@ class DataHolder {
   }
 
   void posicionDelMovilCambio(Position? position){
-    usuario.geoloc=GeoPoint(position!.latitude, position.longitude);
-    fbadmin.actualizarPerfilUsuario(usuario);
+    usuario!.geoloc=GeoPoint(position!.latitude, position.longitude);
+    fbadmin.actualizarPerfilUsuario(usuario!);
   }
 }

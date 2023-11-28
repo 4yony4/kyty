@@ -30,6 +30,7 @@ class _SplashViewState extends State<SplashView>{
     if (FirebaseAuth.instance.currentUser != null) {
 
       FbUsuario? usuario= await DataHolder().loadFbUsuario();
+      await DataHolder().geolocAdmin.determinePosition();
       DataHolder().suscribeACambiosGPSUsuario();
 
       if(usuario!=null){
