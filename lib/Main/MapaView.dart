@@ -28,8 +28,8 @@ class MapaViewState extends State<MapaView> {
 
     _kUser = CameraPosition(
         bearing: 192.8334901395799,
-        target: LatLng(DataHolder().usuario.geoloc.latitude,
-            DataHolder().usuario.geoloc.longitude),
+        target: LatLng(DataHolder().usuario!.geoloc.latitude,
+            DataHolder().usuario!.geoloc.longitude),
         tilt: 59.440717697143555,
         zoom: 15.151926040649414);
 
@@ -106,11 +106,11 @@ class MapaViewState extends State<MapaView> {
 
     Marker marcador= Marker(
       markerId: MarkerId(FirebaseAuth.instance.currentUser!.uid),
-      position: LatLng(DataHolder().usuario.geoloc.latitude,
-          DataHolder().usuario.geoloc.longitude),
+      position: LatLng(DataHolder().usuario!.geoloc.latitude,
+          DataHolder().usuario!.geoloc.longitude),
       infoWindow: InfoWindow(
-        title: DataHolder().usuario.nombre,
-        snippet: DataHolder().usuario.colorPelo,
+        title: DataHolder().usuario!.nombre,
+        snippet: DataHolder().usuario!.colorPelo,
       ), // InfoWindow
     );
 

@@ -2,6 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kyty/Custom/KTTextField.dart';
 
+import '../FirestoreObjects/FbUsuario.dart';
+import '../Singletone/DataHolder.dart';
+
 class PhoneLoginView extends StatefulWidget{
   @override
   State<PhoneLoginView> createState() => _PhoneLoginViewState();
@@ -35,13 +38,35 @@ class _PhoneLoginViewState extends State<PhoneLoginView> {
     // Sign the user in (or link) with the credential
     await FirebaseAuth.instance.signInWithCredential(credential);
 
-    Navigator.of(context).popAndPushNamed("/homeview");
+    FbUsuario? usuario= await DataHolder().loadFbUsuario();
+    await DataHolder().geolocAdmin.determinePosition();
+    DataHolder().suscribeACambiosGPSUsuario();
+
+    if(usuario!=null){
+      print("EL NOMBRE DEL USUARIO LOGEADO ES: "+usuario.nombre);
+      print("LA EDAD DEL USUARIO LOGEADO ES: "+usuario.edad.toString());
+      Navigator.of(context).popAndPushNamed("/homeview");
+    }
+    else{
+      Navigator.of(context).popAndPushNamed("/perfilview");
+    }
   }
 
   void verificacionCompletada(PhoneAuthCredential credencial) async{
     await FirebaseAuth.instance.signInWithCredential(credencial);
 
-    Navigator.of(context).popAndPushNamed("/homeview");
+    FbUsuario? usuario= await DataHolder().loadFbUsuario();
+    await DataHolder().geolocAdmin.determinePosition();
+    DataHolder().suscribeACambiosGPSUsuario();
+
+    if(usuario!=null){
+      print("EL NOMBRE DEL USUARIO LOGEADO ES: "+usuario.nombre);
+      print("LA EDAD DEL USUARIO LOGEADO ES: "+usuario.edad.toString());
+      Navigator.of(context).popAndPushNamed("/homeview");
+    }
+    else{
+      Navigator.of(context).popAndPushNamed("/perfilview");
+    }
   }
 
   void verificacionFallida(FirebaseAuthException excepcion){
